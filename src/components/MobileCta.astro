@@ -1,5 +1,5 @@
 ---
-import { waLink } from '../config';
+import { waLink, path } from '../config';
 import Icon from './Icon.astro';
 ---
 
@@ -7,7 +7,7 @@ import Icon from './Icon.astro';
   <a class="mcta__wa" href={waLink()} target="_blank" rel="noopener" data-track="whatsapp_click">
     <Icon name="whatsapp" />WhatsApp
   </a>
-  <a class="mcta__main" href="/#contacto" data-track="cta_click">Pedir visita</a>
+  <a class="mcta__main" href={path('/#contacto')} data-track="cta_click">Pedir visita</a>
 </div>
 
 <style>

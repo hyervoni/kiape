@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { waLink } from '../config';
+import { waLink, path } from '../config';
 ---
 
 <Base title="Gracias · KIAPE" description="Hemos recibido tu solicitud." noindex>
@@ -14,7 +14,7 @@ import { waLink } from '../config';
       </p>
       <div class="simple__actions">
         <a href={waLink('Hola KIAPE, acabo de enviar el formulario de la web y os adjunto fotos/planos.')} class="btn btn--solid" target="_blank" rel="noopener" data-track="whatsapp_click">Enviar fotos por WhatsApp</a>
-        <a href="/" class="btn btn--ghost">Volver al inicio</a>
+        <a href={path('/')} class="btn btn--ghost">Volver al inicio</a>
       </div>
     </div>
   </section>

@@ -33,7 +33,14 @@ export const site = {
   gtmId: import.meta.env.PUBLIC_GTM_ID ?? '',
 } as const;
 
-export const waLink = (text = 'Hola KIAPE, me gustaría solicitar una visita para un proyecto de suelos.') =>
+/** True on the GitHub Pages preview: the build is marked noindex. */
+export const isPreview = import.meta.env.PUBLIC_PREVIEW === 'true';
+
+/** Prefix an internal path with the deploy base ('/kiape' on GitHub Pages, '' in production). */
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+export const path = (p: string) => `${BASE}${p}`;
+
+export const waLink =(text = 'Hola KIAPE, me gustaría solicitar una visita para un proyecto de suelos.') =>
   `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 
 export type MaterialKey = 'tarima' | 'porcelanico' | 'vinilo' | 'laminado';

@@ -5,7 +5,7 @@
  * GTM is only loaded after the visitor grants analytics or marketing consent.
  * Renders nothing when no GTM ID is configured (the site then sets no cookies).
  */
-import { site } from '../config';
+import { site, path } from '../config';
 const gtmId = site.gtmId;
 ---
 
@@ -16,7 +16,7 @@ const gtmId = site.gtmId;
         <p id="cc-title" class="cc__title">Tu privacidad</p>
         <p class="cc__text">
           Usamos cookies de terceros para medir visitas y campañas. Solo se activan si las aceptas.{' '}
-          <a href="/cookies">Más información</a>.
+          <a href={path('/cookies')}>Más información</a>.
         </p>
         <form class="cc__prefs" data-cc-prefs hidden>
           <label><input type="checkbox" checked disabled /> Necesarias <small>(siempre activas)</small></label>

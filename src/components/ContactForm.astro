@@ -1,5 +1,5 @@
 ---
-import { site, materials } from '../config';
+import { site, materials, path } from '../config';
 ---
 
 <form class="form" data-lead-form data-key={site.formKey} data-wa={site.whatsapp} novalidate>
@@ -17,7 +17,7 @@ import { site, materials } from '../config';
     </label>
     <label class="field">
       <span>Teléfono / WhatsApp</span>
-      <input name="telefono" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9+()\s\-]{9,}" />
+      <input name="telefono" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9+\(\)\s\-]{9,}" />
     </label>
     <label class="field field--full">
       <span>Email <small>(opcional)</small></span>
@@ -53,7 +53,7 @@ import { site, materials } from '../config';
 
   <label class="consent">
     <input type="checkbox" name="privacidad" required />
-    <span>He leído y acepto la <a href="/privacidad" target="_blank">política de privacidad</a>.</span>
+    <span>He leído y acepto la <a href={path('/privacidad')} target="_blank">política de privacidad</a>.</span>
   </label>
 
   <button type="submit" class="btn btn--solid form__submit">Solicitar visita técnica</button>

@@ -28,6 +28,15 @@ src/
 public/                  # favicon, og.jpg (1200×630), robots.txt
 ```
 
+## Preview on GitHub Pages
+
+Every push to `main` deploys a preview to **https://hyervoni.github.io/kiape/** via `.github/workflows/deploy.yml`.
+The workflow builds with `GITHUB_PAGES=true` (serves under the `/kiape` base) and `PUBLIC_PREVIEW=true`
+(adds `noindex` and a blocking `robots.txt`, so the preview never competes with the real domain in Google).
+Internal links must go through `path()` from `src/config.ts` so they work under both bases.
+
+A plain `npm run build` is the production build for `www.kiape.co` (no base, indexable).
+
 ## Environment (optional)
 
 Copy `.env.example` to `.env`:

@@ -1,7 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
-import { site } from '../config';
+import { site, path } from '../config';
 
 interface Props {
   overlay?: boolean;
@@ -9,16 +9,16 @@ interface Props {
 const { overlay = false } = Astro.props;
 
 const links = [
-  { href: '/#materiales', label: 'Materiales' },
-  { href: '/#metodo', label: 'Método' },
-  { href: '/#proyectos', label: 'Proyectos' },
-  { href: '/#preguntas', label: 'Preguntas' },
+  { href: path('/#materiales'), label: 'Materiales' },
+  { href: path('/#metodo'), label: 'Método' },
+  { href: path('/#proyectos'), label: 'Proyectos' },
+  { href: path('/#preguntas'), label: 'Preguntas' },
 ];
 ---
 
 <header class:list={['header', { 'header--overlay': overlay }]} data-header>
   <div class="wrap header__inner">
-    <a href="/" class="logo" aria-label="KIAPE, inicio">
+    <a href={path('/')} class="logo" aria-label="KIAPE, inicio">
       <Logo class="logo__mark" />
       <span class="logo__word">Kiape</span>
     </a>
@@ -35,7 +35,7 @@ const links = [
           </a>
         )
       }
-      <a href="/#contacto" class="header__cta" data-track="cta_click">Solicitar visita</a>
+      <a href={path('/#contacto')} class="header__cta" data-track="cta_click">Solicitar visita</a>
     </div>
   </div>
 </header>

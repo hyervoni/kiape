@@ -1,5 +1,5 @@
 ---
-import { site, waLink } from '../config';
+import { site, waLink, path } from '../config';
 import Logo from './Logo.astro';
 const year = new Date().getFullYear();
 ---
@@ -24,17 +24,17 @@ const year = new Date().getFullYear();
       <div>
         <p class="footer__label">Servicios</p>
         <ul class="footer__list">
-          <li><a href="/#materiales">Tarima y parquet</a></li>
-          <li><a href="/#materiales">Porcelánico</a></li>
-          <li><a href="/#materiales">Vinilo y laminado</a></li>
+          <li><a href={path('/#materiales')}>Tarima y parquet</a></li>
+          <li><a href={path('/#materiales')}>Porcelánico</a></li>
+          <li><a href={path('/#materiales')}>Vinilo y laminado</a></li>
         </ul>
       </div>
     </div>
     <div class="footer__legal">
       <span>© {year} Kiape</span>
-      <a href="/aviso-legal">Aviso legal</a>
-      <a href="/privacidad">Privacidad</a>
-      <a href="/cookies">Cookies</a>
+      <a href={path('/aviso-legal')}>Aviso legal</a>
+      <a href={path('/privacidad')}>Privacidad</a>
+      <a href={path('/cookies')}>Cookies</a>
       {site.gtmId && <button type="button" class="footer__consent" data-consent-open>Configurar cookies</button>}
     </div>
   </div>

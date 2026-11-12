@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { path } from '../config';
 ---
 
 <Base title="Página no encontrada · KIAPE" description="La página que buscas no existe." noindex>
@@ -8,7 +9,7 @@ import Base from '../layouts/Base.astro';
       <p class="eyebrow">Error 404</p>
       <h1 class="h2">Esta lama <em>no encaja.</em></h1>
       <p class="lead">La página que buscas no existe o ha cambiado de dirección.</p>
-      <a href="/" class="btn btn--solid">Volver al inicio</a>
+      <a href={path('/')} class="btn btn--solid">Volver al inicio</a>
     </div>
   </section>
 </Base>

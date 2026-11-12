@@ -14,6 +14,8 @@ const track = (event: string, data: Record<string, unknown> = {}) => {
 };
 
 const root = document.documentElement;
+/** Deploy base: '' in production, '/kiape' on the GitHub Pages preview. */
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 /* ---------- Scroll state ---------- */
 const onScroll = () => {
@@ -132,7 +134,7 @@ if (form) {
         });
         const json = await res.json();
         if (!res.ok || !json.success) throw new Error(json.message || res.statusText);
-        location.href = '/gracias';
+        location.href = `${BASE}/gracias`;
       } catch {
         submit.disabled = false;
         setStatus('No hemos podido enviar el formulario. Inténtalo de nuevo o escríbenos por WhatsApp.', 'error');
@@ -152,6 +154,6 @@ if (form) {
       data.get('mensaje') && `Proyecto: ${data.get('mensaje')}`,
     ].filter(Boolean);
     window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
-    location.href = '/gracias?via=whatsapp';
+    location.href = `${BASE}/gracias?via=whatsapp`;
   });
 }
