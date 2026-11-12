@@ -7,7 +7,7 @@ import Icon from './Icon.astro';
   <a class="mcta__wa" href={waLink()} target="_blank" rel="noopener" data-track="whatsapp_click">
     <Icon name="whatsapp" />WhatsApp
   </a>
-  <a class="mcta__main" href="/#contacto">Solicitar visita</a>
+  <a class="mcta__main" href="/#contacto" data-track="cta_click">Pedir visita</a>
 </div>
 
 <style>
@@ -21,14 +21,10 @@ import Icon from './Icon.astro';
     grid-template-columns: 1fr 1.4fr;
     padding-bottom: env(safe-area-inset-bottom);
     background: var(--ink);
-    transform: translateY(110%);
     transition: transform 0.5s var(--ease);
   }
 
-  :global(html[data-scrolled]) .mcta {
-    transform: none;
-  }
-
+  /* Visible from the first screen; steps aside while the contact form is in view. */
   :global(html[data-at-contact]) .mcta {
     transform: translateY(110%);
   }

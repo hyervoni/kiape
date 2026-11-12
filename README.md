@@ -46,8 +46,9 @@ Instagram bio link suggestion: `https://www.kiape.co/?utm_source=instagram&utm_m
 ## Before going live
 
 - [ ] Replace placeholder photos in `src/assets/img/` (Unsplash) with real KIAPE projects — keep the same file names or update `config.ts` / `index.astro`. Regenerate `public/og.jpg`.
-- [ ] Confirm WhatsApp number, Instagram and Facebook URLs in `src/config.ts`.
-- [ ] Validate claims: supply + install, island-wide coverage, "respuesta en 24 h", install times in FAQ.
+- [ ] Confirm WhatsApp number and Facebook URL in `src/config.ts` (Instagram: @kiape.suelos ✓).
+- [ ] Replace the 6 Instagram grid images in `src/components/Instagram.astro` with real posts from @kiape.suelos (static images on purpose: the official embed is heavy and sets third-party cookies).
+- [ ] Validate claims: supply + install, island-wide coverage, "respuesta en 24 h", samples at the visit ("Visita con muestras"), install times in FAQ.
 - [ ] Fill `site.legal` in `src/config.ts` (holder, NIF, address) — used by Aviso legal and Privacidad.
 - [ ] Add real testimonials to `testimonials` in `src/config.ts` — the section stays hidden while empty.
 - [ ] Set `PUBLIC_WEB3FORMS_KEY` and `PUBLIC_GTM_ID` in the hosting environment.

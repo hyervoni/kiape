@@ -1,5 +1,7 @@
 ---
 import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { site } from '../config';
 
 interface Props {
   overlay?: boolean;
@@ -25,7 +27,16 @@ const links = [
         {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
       </ul>
     </nav>
-    <a href="/#contacto" class="header__cta">Solicitar visita</a>
+    <div class="header__actions">
+      {
+        site.instagram && (
+          <a href={site.instagram} class="header__ig" target="_blank" rel="noopener" aria-label="Instagram de KIAPE" data-track="instagram_click">
+            <Icon name="instagram" />
+          </a>
+        )
+      }
+      <a href="/#contacto" class="header__cta" data-track="cta_click">Solicitar visita</a>
+    </div>
   </div>
 </header>
 
@@ -141,10 +152,29 @@ const links = [
     color: var(--paper);
   }
 
-  @media (max-width: 559px) {
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .header__ig {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+  }
+
+  .header__ig :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* On mobile the fixed bottom bar carries the conversion: no duplicate CTA. */
+  @media (max-width: 759px) {
     .header__cta {
-      padding: 0.55rem 0.8rem;
-      font-size: 0.75rem;
+      display: none;
     }
   }
 

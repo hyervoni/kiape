@@ -12,12 +12,13 @@ export const site = {
     'Instalación de tarima, parquet en espiga, porcelánico de gran formato, vinilo y laminado en Mallorca. Un único equipo: medición, preparación del soporte y acabado. Presupuesto cerrado.',
   locale: 'es_ES',
   region: 'Mallorca, Illes Balears',
-  // TODO(kiape): confirm WhatsApp number, Instagram handle and public Facebook URL.
+  // TODO(kiape): confirm WhatsApp number and public Facebook URL.
   phone: '+34613151919',
   phoneDisplay: '+34 613 151 919',
   whatsapp: '34613151919',
   email: 'info@kiape.co',
-  instagram: '', // e.g. 'https://www.instagram.com/kiape.co'
+  instagram: 'https://www.instagram.com/kiape.suelos',
+  instagramHandle: '@kiape.suelos',
   facebook: '',
   // TODO(kiape): legal data required by LSSI-CE before going live.
   legal: {
@@ -97,8 +98,9 @@ export const materials: {
 
 export const steps = [
   {
-    title: 'Visita y medición',
-    text: 'Vamos a la obra, medimos y revisamos humedad y nivel del soporte. Sin coste ni compromiso.',
+    // TODO(kiape): confirm that samples are brought to the visit.
+    title: 'Visita con muestras',
+    text: 'Medimos, revisamos humedad y nivel del soporte y te llevamos muestras para decidir en casa. Sin coste.',
   },
   {
     title: 'Propuesta cerrada',

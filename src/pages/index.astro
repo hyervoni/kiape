@@ -6,6 +6,7 @@ import SectionHead from '../components/SectionHead.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Icon from '../components/Icon.astro';
 import Testimonials from '../components/Testimonials.astro';
+import Instagram from '../components/Instagram.astro';
 import { site, waLink, materials, steps, faqs } from '../config';
 
 const images = import.meta.glob<{ default: ImageMetadata }>('../assets/img/*.jpg', { eager: true });
@@ -16,7 +17,7 @@ const gallery = [
   { name: 'tarima-espiga', alt: 'Recibidor con suelo de roble en espiga', caption: 'Roble en espiga', cls: 'g--tall' },
   { name: 'cocina-roble', alt: 'Cocina abierta con suelo de roble natural', caption: 'Tarima de roble natural', cls: '' },
   { name: 'porcelanico-cocina', alt: 'Cocina con porcelánico claro colocado en espiga', caption: 'Porcelánico en espiga', cls: '' },
-  { name: 'salon-roble', alt: 'Salón luminoso con tarima de roble claro y ventanales', caption: 'Lama ancha de roble claro', cls: 'g--wide' },
+  { name: 'hero-roble', alt: 'Salón abierto al jardín con tarima de roble natural', caption: 'Roble natural, interior y porche', cls: 'g--wide' },
 ];
 
 const faqSchema = {
@@ -34,8 +35,8 @@ const faqSchema = {
   <!-- HERO -->
   <section class="hero" aria-labelledby="hero-title">
     <Picture
-      src={img('hero-roble')}
-      alt="Salón abierto al jardín con suelo de roble natural instalado en lama ancha"
+      src={img('salon-roble')}
+      alt="Salón luminoso con tarima de roble claro en lama ancha y grandes ventanales"
       formats={['avif', 'webp']}
       widths={[640, 960, 1280, 1920, 2400]}
       sizes="100vw"
@@ -46,10 +47,10 @@ const faqSchema = {
     <div class="hero__scrim" aria-hidden="true"></div>
     <div class="wrap hero__content">
       <p class="eyebrow hero__eyebrow">Instalación de suelos · Mallorca</p>
-      <h1 id="hero-title" class="display">El suelo, a la altura <em>de la casa.</em></h1>
+      <h1 id="hero-title" class="display">El suelo,<br /> a la altura<br /> <em>de la casa.</em></h1>
       <p class="hero__lead">
         Tarima, parquet, porcelánico de gran formato, vinilo y laminado para viviendas y villas. Un único equipo que mide,
-        prepara e instala, con presupuesto cerrado por escrito.
+        prepara e instala.
       </p>
       <div class="hero__actions">
         <a href="#contacto" class="btn btn--light" data-track="cta_click">Solicitar visita técnica <Icon name="arrow" /></a>
@@ -57,10 +58,12 @@ const faqSchema = {
           <Icon name="whatsapp" /> WhatsApp
         </a>
       </div>
+      <ul class="hero__trust" aria-label="Compromisos">
+        <li>Visita técnica sin coste</li>
+        <li>Presupuesto cerrado por escrito</li>
+        <li>Respuesta en 24 h laborables</li>
+      </ul>
     </div>
-    <ul class="wrap hero__materials" aria-label="Materiales">
-      {materials.map((m) => <li>{m.name}</li>)}
-    </ul>
   </section>
 
   <!-- 01 TRAYECTORIA -->
@@ -191,6 +194,7 @@ const faqSchema = {
         }
       </ol>
       <div class="method__cta" data-reveal>
+        <p class="method__cta-text">¿Reforma, obra nueva o villa vacacional? <em>Empecemos por medir.</em></p>
         <a href="#contacto" class="btn btn--light" data-track="cta_click">Reservar visita sin coste <Icon name="arrow" /></a>
       </div>
     </div>
@@ -225,10 +229,12 @@ const faqSchema = {
     </div>
   </section>
 
+  <Instagram />
+
   <Testimonials />
 
   <!-- 05 PREGUNTAS -->
-  <section class="section faq-section" id="preguntas" aria-labelledby="preguntas-title">
+  <section class="section" id="preguntas" aria-labelledby="preguntas-title">
     <div class="wrap faq-layout">
       <div>
         <SectionHead index="05" label="Preguntas" />
@@ -302,7 +308,7 @@ const faqSchema = {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 60%;
+    object-position: 50% 55%;
     z-index: -2;
     animation: settle 2.4s var(--ease) both;
   }
@@ -322,18 +328,24 @@ const faqSchema = {
       linear-gradient(to bottom, rgb(20 18 15 / 0.45), rgb(20 18 15 / 0) 22%);
   }
 
+  /* Daylight hero: darken the text column so copy stays legible over bright walls. */
+  @media (min-width: 760px) {
+    .hero__scrim {
+      background:
+        linear-gradient(to right, rgb(20 18 15 / 0.62) 0%, rgb(20 18 15 / 0.3) 40%, rgb(20 18 15 / 0) 65%),
+        linear-gradient(to top, rgb(20 18 15 / 0.7) 0%, rgb(20 18 15 / 0.25) 45%, rgb(20 18 15 / 0) 70%),
+        linear-gradient(to bottom, rgb(20 18 15 / 0.45), rgb(20 18 15 / 0) 22%);
+    }
+  }
+
   .hero__content {
     padding-top: calc(var(--header-h) + 3rem);
-    padding-bottom: clamp(2rem, 5vw, 3rem);
+    padding-bottom: clamp(2.5rem, 6vw, 4rem);
   }
 
   .hero__eyebrow {
     margin-bottom: 1.25rem;
-    color: var(--mares);
-  }
-
-  .hero h1 {
-    max-width: 11ch;
+    color: var(--paper);
   }
 
   .hero h1 em {
@@ -361,21 +373,47 @@ const faqSchema = {
     color: var(--ink);
   }
 
-  .hero__materials {
+  .hero__trust {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.25rem 1.5rem;
-    padding-block: 1.1rem;
-    border-top: 1px solid rgb(250 247 242 / 0.25);
-    font-size: 0.75rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgb(250 247 242 / 0.75);
+    gap: 0.35rem 1.75rem;
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    color: rgb(250 247 242 / 0.85);
   }
 
-  @media (max-width: 559px) {
+  .hero__trust li {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .hero__trust li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--mares);
+  }
+
+  @media (max-width: 759px) {
+    .hero__content {
+      /* room for the fixed mobile CTA bar */
+      padding-bottom: calc(58px + 1.75rem + env(safe-area-inset-bottom));
+    }
+
     .hero__actions .btn {
       flex: 1 1 100%;
+    }
+
+    /* WhatsApp lives in the fixed bottom bar on mobile */
+    .hero__wa {
+      display: none;
+    }
+
+    .hero__trust {
+      gap: 0.3rem 1.25rem;
+      font-size: 0.8125rem;
     }
   }
 
@@ -691,7 +729,32 @@ const faqSchema = {
   }
 
   .method__cta {
-    margin-top: clamp(3rem, 6vw, 4.5rem);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: clamp(4rem, 8vw, 7rem);
+    padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 4vw, 3.5rem);
+    border: 1px solid rgb(250 247 242 / 0.2);
+  }
+
+  .method__cta-text {
+    font-family: var(--serif);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1.12;
+    max-width: 36rem;
+    text-wrap: balance;
+  }
+
+  .method__cta-text em {
+    color: var(--mares);
+  }
+
+  @media (max-width: 559px) {
+    .method__cta .btn {
+      width: 100%;
+    }
   }
 
   @media (min-width: 700px) {
@@ -757,10 +820,6 @@ const faqSchema = {
   }
 
   /* ---------- FAQ ---------- */
-  .faq-section {
-    background: var(--paper);
-  }
-
   .faq-layout {
     display: grid;
     gap: 2.5rem;
