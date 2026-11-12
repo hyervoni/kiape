@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config';
+---
+
+<Base title="Política de privacidad · KIAPE" description="Cómo trata KIAPE los datos personales que nos facilitas a través de la web.">
+  <article class="section legal">
+    <div class="wrap">
+      <p class="eyebrow">Legal</p>
+      <h1 class="h2">Política de privacidad</h1>
+      <h2>Responsable</h2>
+      <p>{site.legal.holder} · {site.legal.taxId} · {site.legal.address} · <a href={`mailto:${site.email}`}>{site.email}</a></p>
+      <h2>Finalidad</h2>
+      <p>Atender tu solicitud de información, visita técnica o presupuesto y mantener la comunicación necesaria para ello.</p>
+      <h2>Legitimación</h2>
+      <p>Tu consentimiento al enviar el formulario y la aplicación de medidas precontractuales a petición tuya.</p>
+      <h2>Conservación</h2>
+      <p>Mientras dure la relación comercial o, si no llega a producirse, un máximo de 12 meses desde tu último contacto.</p>
+      <h2>Destinatarios</h2>
+      <p>No cedemos tus datos a terceros salvo obligación legal. Utilizamos proveedores tecnológicos (envío de formularios y mensajería) que actúan como encargados del tratamiento.</p>
+      <h2>Derechos</h2>
+      <p>Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a <a href={`mailto:${site.email}`}>{site.email}</a>. También puedes reclamar ante la Agencia Española de Protección de Datos (aepd.es).</p>
+    </div>
+  </article>
+</Base>

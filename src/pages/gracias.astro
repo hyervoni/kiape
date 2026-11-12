@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import { waLink } from '../config';
+---
+
+<Base title="Gracias · KIAPE" description="Hemos recibido tu solicitud." noindex>
+  <section class="section simple">
+    <div class="wrap">
+      <p class="eyebrow">Solicitud recibida</p>
+      <h1 class="h2">Gracias. <em>Hablamos muy pronto.</em></h1>
+      <p class="lead" data-msg>
+        Te contactaremos en menos de 24 horas laborables para concretar la visita técnica. Si lo prefieres, puedes
+        adelantarnos fotos o planos por WhatsApp.
+      </p>
+      <div class="simple__actions">
+        <a href={waLink('Hola KIAPE, acabo de enviar el formulario de la web y os adjunto fotos/planos.')} class="btn btn--solid" target="_blank" rel="noopener" data-track="whatsapp_click">Enviar fotos por WhatsApp</a>
+        <a href="/" class="btn btn--ghost">Volver al inicio</a>
+      </div>
+    </div>
+  </section>
+  <script is:inline>
+    // Conversion event for GTM → Google Ads / Meta
+    (window.dataLayer = window.dataLayer || []).push({ event: 'generate_lead' });
+    if (new URLSearchParams(location.search).get('via') === 'whatsapp') {
+      document.querySelector('[data-msg]').textContent =
+        'Hemos abierto WhatsApp con tu solicitud ya redactada. Solo tienes que pulsar enviar y te responderemos en menos de 24 horas laborables.';
+    }
+  </script>
+</Base>
+
+<style>
+  .simple {
+    min-height: 70vh;
+    display: grid;
+    align-items: center;
+  }
+
+  .simple .wrap {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 52rem;
+  }
+
+  .simple .eyebrow {
+    color: var(--oak);
+  }
+
+  .simple__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+</style>

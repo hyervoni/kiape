@@ -1,0 +1,142 @@
+---
+import { site, waLink } from '../config';
+import Logo from './Logo.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="ruler footer__ruler" aria-hidden="true"></div>
+    <div class="footer__grid">
+      <div>
+        <p class="footer__brand"><Logo class="footer__mark" />Kiape</p>
+        <p class="footer__tag">Instalación de suelos con oficio.<br />Mallorca, Illes Balears.</p>
+      </div>
+      <div>
+        <p class="footer__label">Contacto</p>
+        <ul class="footer__list">
+          <li><a href={`tel:${site.phone}`} data-track="phone_click">{site.phoneDisplay}</a></li>
+          <li><a href={waLink()} target="_blank" rel="noopener" data-track="whatsapp_click">WhatsApp</a></li>
+          <li><a href={`mailto:${site.email}`} data-track="email_click">{site.email}</a></li>
+          {site.instagram && <li><a href={site.instagram} target="_blank" rel="noopener">Instagram</a></li>}
+        </ul>
+      </div>
+      <div>
+        <p class="footer__label">Servicios</p>
+        <ul class="footer__list">
+          <li><a href="/#materiales">Tarima y parquet</a></li>
+          <li><a href="/#materiales">Porcelánico</a></li>
+          <li><a href="/#materiales">Vinilo y laminado</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__legal">
+      <span>© {year} Kiape</span>
+      <a href="/aviso-legal">Aviso legal</a>
+      <a href="/privacidad">Privacidad</a>
+      <a href="/cookies">Cookies</a>
+      {site.gtmId && <button type="button" class="footer__consent" data-consent-open>Configurar cookies</button>}
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--ink);
+    color: var(--mares);
+    padding: clamp(3.5rem, 7vw, 5.5rem) 0 calc(2rem + env(safe-area-inset-bottom));
+    font-size: 0.9375rem;
+  }
+
+  .footer__ruler {
+    color: var(--mares);
+    margin-bottom: 3rem;
+  }
+
+  .footer__grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .footer__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--paper);
+    margin-bottom: 0.75rem;
+  }
+
+  .footer__brand :global(.footer__mark) {
+    width: 36px;
+    height: 36px;
+  }
+
+  .footer__tag {
+    color: rgb(227 216 198 / 0.7);
+  }
+
+  .footer__label {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgb(227 216 198 / 0.55);
+    margin-bottom: 0.9rem;
+  }
+
+  .footer__list {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .footer a {
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    color: var(--paper);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .footer__consent {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .footer__consent:hover {
+    color: var(--paper);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgb(227 216 198 / 0.15);
+    font-size: 0.8125rem;
+    color: rgb(227 216 198 / 0.55);
+  }
+
+  @media (min-width: 760px) {
+    .footer__grid {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+  }
+
+  /* Leave room for the mobile CTA bar */
+  @media (max-width: 759px) {
+    .footer {
+      padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+    }
+  }
+</style>

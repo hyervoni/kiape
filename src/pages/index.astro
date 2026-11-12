@@ -1,0 +1,882 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Icon from '../components/Icon.astro';
+import Testimonials from '../components/Testimonials.astro';
+import { site, waLink, materials, steps, faqs } from '../config';
+
+const images = import.meta.glob<{ default: ImageMetadata }>('../assets/img/*.jpg', { eager: true });
+const img = (name: string) => images[`../assets/img/${name}.jpg`].default;
+
+const gallery = [
+  { name: 'villa-piscina', alt: 'Villa mediterránea con porcelánico continuo entre interior y piscina', caption: 'Porcelánico continuo, interior y exterior', cls: 'g--wide' },
+  { name: 'tarima-espiga', alt: 'Recibidor con suelo de roble en espiga', caption: 'Roble en espiga', cls: 'g--tall' },
+  { name: 'cocina-roble', alt: 'Cocina abierta con suelo de roble natural', caption: 'Tarima de roble natural', cls: '' },
+  { name: 'porcelanico-cocina', alt: 'Cocina con porcelánico claro colocado en espiga', caption: 'Porcelánico en espiga', cls: '' },
+  { name: 'salon-roble', alt: 'Salón luminoso con tarima de roble claro y ventanales', caption: 'Lama ancha de roble claro', cls: 'g--wide' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Base overlayHeader schema={[faqSchema]}>
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <Picture
+      src={img('hero-roble')}
+      alt="Salón abierto al jardín con suelo de roble natural instalado en lama ancha"
+      formats={['avif', 'webp']}
+      widths={[640, 960, 1280, 1920, 2400]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="hero__img"
+    />
+    <div class="hero__scrim" aria-hidden="true"></div>
+    <div class="wrap hero__content">
+      <p class="eyebrow hero__eyebrow">Instalación de suelos · Mallorca</p>
+      <h1 id="hero-title" class="display">El suelo, a la altura <em>de la casa.</em></h1>
+      <p class="hero__lead">
+        Tarima, parquet, porcelánico de gran formato, vinilo y laminado para viviendas y villas. Un único equipo que mide,
+        prepara e instala, con presupuesto cerrado por escrito.
+      </p>
+      <div class="hero__actions">
+        <a href="#contacto" class="btn btn--light" data-track="cta_click">Solicitar visita técnica <Icon name="arrow" /></a>
+        <a href={waLink()} class="btn btn--ghost hero__wa" target="_blank" rel="noopener" data-track="whatsapp_click">
+          <Icon name="whatsapp" /> WhatsApp
+        </a>
+      </div>
+    </div>
+    <ul class="wrap hero__materials" aria-label="Materiales">
+      {materials.map((m) => <li>{m.name}</li>)}
+    </ul>
+  </section>
+
+  <!-- 01 TRAYECTORIA -->
+  <section class="section" id="estudio" aria-labelledby="estudio-title">
+    <div class="wrap">
+      <SectionHead index="01" label="Trayectoria" />
+      <div class="intro">
+        <h2 id="estudio-title" class="h2" data-reveal>
+          Oficio aprendido en <em>tres continentes,</em> aplicado en Mallorca.
+        </h2>
+        <div class="intro__body" data-reveal style="--d:120ms">
+          <p class="lead">
+            Empezamos instalando suelos en Latinoamérica, nos formamos y crecimos en Australia y hoy trabajamos en Mallorca.
+            En cada obra aplicamos lo aprendido: profesionalidad, atención al detalle y buen gusto.
+          </p>
+          <ol class="route" aria-label="Recorrido de KIAPE">
+            <li><span>Latinoamérica</span><small>Origen</small></li>
+            <li><span>Australia</span><small>Formación</small></li>
+            <li><span>Mallorca</span><small>Hoy</small></li>
+          </ol>
+        </div>
+      </div>
+
+      <dl class="promises">
+        <div data-reveal>
+          <dt>Presupuesto cerrado</dt>
+          <dd>Material, preparación, instalación y plazos por escrito antes de empezar. Sin partidas sorpresa.</dd>
+        </div>
+        <div data-reveal style="--d:100ms">
+          <dt>Un solo equipo</dt>
+          <dd>Las mismas manos de la medición a la entrega. Un único interlocutor durante toda la obra.</dd>
+        </div>
+        <div data-reveal style="--d:200ms">
+          <dt>Obra limpia</dt>
+          <dd>Protegemos lo que ya está terminado y entregamos la casa lista para vivir.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- MANIFIESTO -->
+  <section class="manifesto" aria-label="Nuestra forma de trabajar">
+    <div class="manifesto__img" data-reveal>
+      <Picture
+        src={img('interior-luz')}
+        alt="Interior luminoso con porcelánico claro, escalera de madera y vistas a la piscina"
+        formats={['avif', 'webp']}
+        widths={[640, 960, 1400]}
+        sizes="(min-width: 900px) 55vw, 100vw"
+      />
+    </div>
+    <div class="manifesto__text">
+      <blockquote data-reveal>
+        <p class="h2">“Cuidamos cada paso <em>como si fuera</em> nuestra propia casa.”</p>
+      </blockquote>
+      <p class="lead" data-reveal style="--d:120ms">
+        No buscamos solo un acabado perfecto. Buscamos que la obra sea una buena experiencia: escuchar lo que necesitas,
+        cumplir lo acordado y dejarlo todo mejor de lo que lo encontramos.
+      </p>
+    </div>
+  </section>
+
+  <!-- 02 MATERIALES -->
+  <section class="section" id="materiales" aria-labelledby="materiales-title">
+    <div class="wrap">
+      <SectionHead index="02" label="Materiales" />
+      <div class="split-head">
+        <h2 id="materiales-title" class="h2" data-reveal>Cuatro materiales. <em>Una misma exigencia.</em></h2>
+        <p class="lead" data-reveal style="--d:120ms">
+          Te asesoramos según el uso, la luz y el estilo de cada estancia. Suministramos el material o instalamos el que ya
+          hayas elegido con tu interiorista.
+        </p>
+      </div>
+    </div>
+    <ul class="materials wrap" role="list">
+      {
+        materials.map((m, i) => (
+          <li class="mat" data-reveal style={`--d:${i * 90}ms`}>
+            <div class="mat__img">
+              <Picture
+                src={img(m.image)}
+                alt={m.alt}
+                formats={['avif', 'webp']}
+                widths={[400, 640, 900]}
+                sizes="(min-width: 1100px) 25vw, (min-width: 700px) 45vw, 80vw"
+              />
+              <span class="mat__idx">0{i + 1}</span>
+            </div>
+            <h3 class="h3">{m.name}</h3>
+            <p class="mat__lead">{m.lead}</p>
+            <dl class="mat__specs">
+              {m.specs.map(([k, v]) => (
+                <div>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
+            </dl>
+            <a href="#contacto" class="link-arrow" data-pick-material={m.name} data-track="material_click">
+              Consultar <Icon name="arrow" class="i-16" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- 03 MÉTODO -->
+  <section class="section method" id="metodo" aria-labelledby="metodo-title">
+    <div class="wrap">
+      <SectionHead index="03" label="Método" tone="light" />
+      <div class="split-head">
+        <h2 id="metodo-title" class="h2" data-reveal>De la medición a <em>la última lama.</em></h2>
+        <p class="lead" data-reveal style="--d:120ms">
+          Un buen suelo depende de lo que hay debajo. Por eso la preparación del soporte forma parte de nuestro trabajo,
+          no es un extra.
+        </p>
+      </div>
+      <ol class="steps">
+        {
+          steps.map((s, i) => (
+            <li class="step" data-reveal style={`--d:${i * 100}ms`}>
+              <span class="step__num">0{i + 1}</span>
+              <h3 class="step__title">{s.title}</h3>
+              <p>{s.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="method__cta" data-reveal>
+        <a href="#contacto" class="btn btn--light" data-track="cta_click">Reservar visita sin coste <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 PROYECTOS -->
+  <section class="section" id="proyectos" aria-labelledby="proyectos-title">
+    <div class="wrap">
+      <SectionHead index="04" label="Espacios" />
+      <div class="split-head">
+        <h2 id="proyectos-title" class="h2" data-reveal>Superficies que <em>se viven</em> descalzo.</h2>
+        <p class="lead" data-reveal style="--d:120ms">
+          Villas, áticos y casas de pueblo. Cada espacio pide un material, un formato y una forma de colocarlo.
+        </p>
+      </div>
+      <div class="gallery">
+        {
+          gallery.map((g) => (
+            <figure class:list={['g', g.cls]} data-reveal>
+              <Picture
+                src={img(g.name)}
+                alt={g.alt}
+                formats={['avif', 'webp']}
+                widths={[480, 800, 1200, 1600]}
+                sizes={g.cls === 'g--wide' ? '(min-width: 900px) 66vw, 100vw' : '(min-width: 900px) 33vw, 100vw'}
+              />
+              <figcaption>{g.caption}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <Testimonials />
+
+  <!-- 05 PREGUNTAS -->
+  <section class="section faq-section" id="preguntas" aria-labelledby="preguntas-title">
+    <div class="wrap faq-layout">
+      <div>
+        <SectionHead index="05" label="Preguntas" />
+        <h2 id="preguntas-title" class="h2" data-reveal>Antes de <em>empezar.</em></h2>
+      </div>
+      <div class="faq">
+        {
+          faqs.map((f) => (
+            <details class="faq__item" data-reveal>
+              <summary>
+                <span>{f.q}</span>
+                <Icon name="plus" class="faq__icon" />
+              </summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 CONTACTO -->
+  <section class="section contact" id="contacto" aria-labelledby="contacto-title">
+    <div class="wrap contact__grid">
+      <div class="contact__intro">
+        <SectionHead index="06" label="Contacto" />
+        <h2 id="contacto-title" class="h2" data-reveal>Hablemos de <em>tu proyecto.</em></h2>
+        <p class="lead" data-reveal style="--d:100ms">
+          Visita técnica y presupuesto sin coste en toda Mallorca. Te respondemos en menos de 24 horas laborables.
+        </p>
+        <ul class="channels" data-reveal style="--d:160ms">
+          <li>
+            <a href={waLink()} target="_blank" rel="noopener" data-track="whatsapp_click">
+              <Icon name="whatsapp" /><span><small>WhatsApp</small>Escríbenos ahora</span>
+            </a>
+          </li>
+          <li>
+            <a href={`tel:${site.phone}`} data-track="phone_click">
+              <Icon name="phone" /><span><small>Teléfono</small>{site.phoneDisplay}</span>
+            </a>
+          </li>
+          <li>
+            <a href={`mailto:${site.email}`} data-track="email_click">
+              <Icon name="mail" /><span><small>Email</small>{site.email}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="contact__form" data-reveal style="--d:120ms">
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    min-height: max(640px, 100svh);
+    display: grid;
+    align-content: end;
+    color: var(--paper);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero :global(.hero__img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 60%;
+    z-index: -2;
+    animation: settle 2.4s var(--ease) both;
+  }
+
+  @keyframes settle {
+    from {
+      transform: scale(1.06);
+    }
+  }
+
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(to top, rgb(20 18 15 / 0.82) 0%, rgb(20 18 15 / 0.5) 50%, rgb(20 18 15 / 0) 78%),
+      linear-gradient(to bottom, rgb(20 18 15 / 0.45), rgb(20 18 15 / 0) 22%);
+  }
+
+  .hero__content {
+    padding-top: calc(var(--header-h) + 3rem);
+    padding-bottom: clamp(2rem, 5vw, 3rem);
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 1.25rem;
+    color: var(--mares);
+  }
+
+  .hero h1 {
+    max-width: 11ch;
+  }
+
+  .hero h1 em {
+    color: var(--mares);
+  }
+
+  .hero__lead {
+    max-width: 36rem;
+    margin-top: 1.5rem;
+    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+    color: rgb(250 247 242 / 0.88);
+    text-wrap: pretty;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .hero__wa:hover {
+    background: var(--paper);
+    border-color: var(--paper);
+    color: var(--ink);
+  }
+
+  .hero__materials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.5rem;
+    padding-block: 1.1rem;
+    border-top: 1px solid rgb(250 247 242 / 0.25);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgb(250 247 242 / 0.75);
+  }
+
+  @media (max-width: 559px) {
+    .hero__actions .btn {
+      flex: 1 1 100%;
+    }
+  }
+
+  /* ---------- Intro / trayectoria ---------- */
+  .intro {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .intro__body {
+    display: grid;
+    gap: 2.5rem;
+    align-content: start;
+  }
+
+  .route {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--ink);
+  }
+
+  .route li {
+    position: relative;
+    display: grid;
+    gap: 0.15rem;
+    padding-top: 1rem;
+  }
+
+  .route li::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--bone);
+    border: 1px solid var(--ink);
+  }
+
+  .route li:last-child::before {
+    background: var(--oak);
+    border-color: var(--oak);
+  }
+
+  .route span {
+    font-family: var(--serif);
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
+    line-height: 1.1;
+  }
+
+  .route small {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .promises {
+    display: grid;
+    gap: 2rem;
+    margin-top: clamp(4rem, 8vw, 6.5rem);
+  }
+
+  .promises > div {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .promises dt {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+
+  .promises dd {
+    color: var(--ink-2);
+    max-width: 30ch;
+  }
+
+  @media (min-width: 900px) {
+    .intro {
+      grid-template-columns: 1.15fr 1fr;
+      gap: 5rem;
+    }
+
+    .promises {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+  }
+
+  /* ---------- Manifesto ---------- */
+  .manifesto {
+    display: grid;
+    background: var(--mares);
+  }
+
+  .manifesto__img :global(img) {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .manifesto__text {
+    display: grid;
+    align-content: center;
+    gap: 2rem;
+    padding: clamp(3.5rem, 8vw, 7rem) var(--gutter);
+  }
+
+  .manifesto blockquote .h2 {
+    max-width: 16ch;
+  }
+
+  @media (min-width: 900px) {
+    .manifesto {
+      grid-template-columns: 1.2fr 1fr;
+      min-height: 80vh;
+    }
+
+    .manifesto__img {
+      position: relative;
+    }
+
+    .manifesto__img :global(img) {
+      position: absolute;
+      inset: 0;
+      aspect-ratio: auto;
+    }
+
+    .manifesto__text {
+      padding-inline: clamp(3rem, 6vw, 6rem);
+    }
+  }
+
+  /* ---------- Split heading ---------- */
+  .split-head {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .split-head .h2 {
+    max-width: 14ch;
+  }
+
+  @media (min-width: 900px) {
+    .split-head {
+      grid-template-columns: 1.15fr 1fr;
+      gap: 5rem;
+      align-items: end;
+    }
+  }
+
+  /* ---------- Materials ---------- */
+  .materials {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 80%;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    padding-bottom: 1rem;
+    scrollbar-width: none;
+  }
+
+  .materials::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mat {
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .mat__img {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0.4rem;
+  }
+
+  .mat__img :global(img) {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    transition: transform 1.2s var(--ease);
+  }
+
+  .mat:hover .mat__img :global(img) {
+    transform: scale(1.04);
+  }
+
+  .mat__idx {
+    position: absolute;
+    top: 0.9rem;
+    left: 0.9rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--paper);
+    mix-blend-mode: difference;
+  }
+
+  .mat__lead {
+    color: var(--ink-2);
+    font-size: 0.975rem;
+  }
+
+  .mat__specs {
+    margin-top: auto;
+    border-top: 1px solid var(--line);
+    font-size: 0.875rem;
+  }
+
+  .mat__specs div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mat__specs dt {
+    color: var(--ink-3);
+  }
+
+  .mat__specs dd {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .mat .link-arrow {
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+
+  .mat .link-arrow :global(svg) {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.35s var(--ease);
+  }
+
+  .mat .link-arrow:hover :global(svg) {
+    transform: translateX(4px);
+  }
+
+  @media (min-width: 700px) {
+    .materials {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(2, 1fr);
+      overflow: visible;
+      gap: 3rem 2rem;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .materials {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  /* ---------- Method ---------- */
+  .method {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .method .lead {
+    color: rgb(250 247 242 / 0.72);
+  }
+
+  .method .h2 em {
+    color: var(--mares);
+  }
+
+  .steps {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .step {
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgb(250 247 242 / 0.2);
+  }
+
+  .step__num {
+    font-family: var(--serif);
+    font-size: 3.25rem;
+    line-height: 1;
+    color: var(--oak);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .step__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .step p {
+    color: rgb(250 247 242 / 0.7);
+    font-size: 0.975rem;
+  }
+
+  .method__cta {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  @media (min-width: 700px) {
+    .steps {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem 2rem;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .steps {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* ---------- Gallery ---------- */
+  .gallery {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .g :global(img) {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .g figcaption {
+    margin-top: 0.6rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+  }
+
+  @media (min-width: 900px) {
+    .gallery {
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 24vw;
+      gap: 3.5rem 1.5rem;
+    }
+
+    .g {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+    }
+
+    .g :global(picture) {
+      min-height: 0;
+    }
+
+    .g :global(img) {
+      height: 100%;
+      aspect-ratio: auto;
+    }
+
+    .g--wide {
+      grid-column: span 2;
+    }
+
+    .g--tall {
+      grid-row: span 2;
+    }
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-section {
+    background: var(--paper);
+  }
+
+  .faq-layout {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .faq {
+    border-top: 1px solid var(--ink);
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .faq__item summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.4rem 0;
+    cursor: pointer;
+    list-style: none;
+    font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+    font-weight: 500;
+  }
+
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__item :global(.faq__icon) {
+    width: 22px;
+    height: 22px;
+    flex: none;
+    transition: transform 0.4s var(--ease);
+  }
+
+  .faq__item[open] :global(.faq__icon) {
+    transform: rotate(45deg);
+  }
+
+  .faq__item p {
+    padding: 0 3rem 1.5rem 0;
+    color: var(--ink-2);
+    max-width: 60ch;
+  }
+
+  @media (min-width: 900px) {
+    .faq-layout {
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+    }
+  }
+
+  /* ---------- Contact ---------- */
+  .contact__grid {
+    display: grid;
+    gap: 3rem;
+  }
+
+  .contact__intro {
+    display: grid;
+    gap: 1.5rem;
+    align-content: start;
+  }
+
+  .contact__intro :global(.shead) {
+    margin-bottom: 1rem;
+  }
+
+  .channels {
+    display: grid;
+    margin-top: 1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .channels a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    transition: color 0.3s var(--ease);
+  }
+
+  .channels a:hover {
+    color: var(--oak);
+  }
+
+  .channels :global(svg) {
+    width: 22px;
+    height: 22px;
+    flex: none;
+  }
+
+  .channels span {
+    display: grid;
+    font-size: 1.05rem;
+  }
+
+  .channels small {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .contact__form {
+    background: var(--paper);
+    padding: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  @media (min-width: 1000px) {
+    .contact__grid {
+      grid-template-columns: 1fr 1.25fr;
+      gap: 5rem;
+    }
+  }
+</style>

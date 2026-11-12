@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config';
+const tracking = Boolean(site.gtmId);
+---
+
+<Base title="Política de cookies · KIAPE" description="Qué cookies utiliza kiape.co y cómo gestionarlas.">
+  <article class="section legal">
+    <div class="wrap">
+      <p class="eyebrow">Legal</p>
+      <h1 class="h2">Política de cookies</h1>
+
+      <h2>Qué son</h2>
+      <p>
+        Las cookies son pequeños archivos que un sitio web guarda en tu navegador. Algunas son necesarias para que la web
+        funcione y otras sirven para medir visitas o mostrar publicidad relevante.
+      </p>
+
+      {
+        tracking ? (
+          <>
+            <h2>Cookies que utilizamos</h2>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr><th>Tipo</th><th>Proveedor</th><th>Finalidad</th><th>Duración</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Técnica</td><td>kiape.co (almacenamiento local)</td><td>Recordar tus preferencias de cookies</td><td>Hasta que la borres</td></tr>
+                  <tr><td>Analítica</td><td>Google Analytics</td><td>Medir visitas y uso de la web de forma agregada</td><td>Hasta 2 años</td></tr>
+                  <tr><td>Publicidad</td><td>Google Ads, Meta</td><td>Medir la eficacia de campañas y mostrar anuncios relevantes</td><td>Hasta 2 años</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Las cookies analíticas y publicitarias solo se activan si las aceptas.</p>
+            <h2>Cómo gestionarlas</h2>
+            <p>
+              Puedes cambiar tu elección en cualquier momento desde{' '}
+              <button type="button" class="link-btn" data-consent-open>configurar cookies</button> o borrarlas desde los
+              ajustes de tu navegador.
+            </p>
+          </>
+        ) : (
+          <>
+            <h2>Cookies que utilizamos</h2>
+            <p>
+              Actualmente esta web no instala cookies de analítica ni de publicidad. Solo usamos almacenamiento técnico de
+              sesión para atribuir correctamente el origen de tu consulta (por ejemplo, si llegas desde Instagram), que se
+              elimina al cerrar el navegador.
+            </p>
+          </>
+        )
+      }
+
+      <h2>Contacto</h2>
+      <p>Para cualquier duda escríbenos a <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .link-btn {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: var(--ink);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+</style>

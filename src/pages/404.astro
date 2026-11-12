@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Página no encontrada · KIAPE" description="La página que buscas no existe." noindex>
+  <section class="section nf">
+    <div class="wrap">
+      <p class="eyebrow">Error 404</p>
+      <h1 class="h2">Esta lama <em>no encaja.</em></h1>
+      <p class="lead">La página que buscas no existe o ha cambiado de dirección.</p>
+      <a href="/" class="btn btn--solid">Volver al inicio</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    min-height: 70vh;
+    display: grid;
+    align-items: center;
+  }
+
+  .nf .wrap {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+  }
+
+  .nf .eyebrow {
+    color: var(--oak);
+  }
+</style>

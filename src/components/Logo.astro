@@ -1,0 +1,15 @@
+---
+/** KIAPE mark: concentric rings with floor planks (chords of the inner circle). Uses currentColor. */
+interface Props {
+  class?: string;
+}
+const { class: cls } = Astro.props;
+---
+
+<svg class={cls} viewBox="0 0 400 400" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="13">
+  <circle cx="200" cy="200" r="188" />
+  <circle cx="200" cy="200" r="163" />
+  <circle cx="200" cy="200" r="138" />
+  <circle cx="200" cy="200" r="106" />
+  <path stroke-width="11" d="M104 155h192M95 185h210M95.4 217h209.2M105 247h190" />
+</svg>

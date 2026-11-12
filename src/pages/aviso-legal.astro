@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config';
+const { legal } = site;
+---
+
+<Base title="Aviso legal · KIAPE" description="Información legal del titular de kiape.co.">
+  <article class="section legal">
+    <div class="wrap">
+      <p class="eyebrow">Legal</p>
+      <h1 class="h2">Aviso legal</h1>
+
+      <h2>Titular</h2>
+      <p>
+        En cumplimiento de la Ley 34/2002, de servicios de la sociedad de la información y de comercio electrónico
+        (LSSI-CE), te informamos de que este sitio web pertenece a:
+      </p>
+      <ul>
+        <li>Titular: {legal.holder}</li>
+        <li>NIF/CIF: {legal.taxId}</li>
+        <li>Domicilio: {legal.address}</li>
+        <li>Email: <a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li>Teléfono: <a href={`tel:${site.phone}`}>{site.phoneDisplay}</a></li>
+        {legal.registry && <li>Datos registrales: {legal.registry}</li>}
+      </ul>
+
+      <h2>Uso del sitio</h2>
+      <p>
+        El acceso a esta web es gratuito e implica la aceptación de este aviso. El usuario se compromete a hacer un uso
+        adecuado de los contenidos y a no emplearlos para actividades ilícitas.
+      </p>
+
+      <h2>Propiedad intelectual</h2>
+      <p>
+        Los textos, logotipos, diseño y código de esta web son titularidad de {site.legalName} o se usan con licencia. Queda
+        prohibida su reproducción sin autorización expresa.
+      </p>
+
+      <h2>Responsabilidad</h2>
+      <p>
+        La información de esta web tiene carácter orientativo. Las condiciones, plazos y precios definitivos de cada obra
+        se fijan en el presupuesto escrito que entregamos tras la visita técnica.
+      </p>
+
+      <h2>Legislación aplicable</h2>
+      <p>Este aviso se rige por la legislación española.</p>
+    </div>
+  </article>
+</Base>
+
+<style>
+  ul {
+    display: grid;
+    gap: 0.3rem;
+  }
+</style>

@@ -1,0 +1,156 @@
+---
+import Logo from './Logo.astro';
+
+interface Props {
+  overlay?: boolean;
+}
+const { overlay = false } = Astro.props;
+
+const links = [
+  { href: '/#materiales', label: 'Materiales' },
+  { href: '/#metodo', label: 'Método' },
+  { href: '/#proyectos', label: 'Proyectos' },
+  { href: '/#preguntas', label: 'Preguntas' },
+];
+---
+
+<header class:list={['header', { 'header--overlay': overlay }]} data-header>
+  <div class="wrap header__inner">
+    <a href="/" class="logo" aria-label="KIAPE, inicio">
+      <Logo class="logo__mark" />
+      <span class="logo__word">Kiape</span>
+    </a>
+    <nav aria-label="Principal">
+      <ul class="nav">
+        {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <a href="/#contacto" class="header__cta">Solicitar visita</a>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: var(--header-h);
+    background: rgb(242 237 228 / 0.92);
+    backdrop-filter: saturate(140%) blur(10px);
+    -webkit-backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    transition:
+      background-color 0.5s var(--ease),
+      color 0.5s var(--ease),
+      border-color 0.5s var(--ease);
+  }
+
+  .header--overlay {
+    position: fixed;
+    inset: 0 0 auto;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: transparent;
+    color: var(--paper);
+  }
+
+  :global(html[data-scrolled]) .header--overlay {
+    background: rgb(242 237 228 / 0.92);
+    backdrop-filter: saturate(140%) blur(10px);
+    -webkit-backdrop-filter: saturate(140%) blur(10px);
+    border-color: var(--line);
+    color: var(--ink);
+  }
+
+  .header__inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+  }
+
+  .logo :global(.logo__mark) {
+    width: 30px;
+    height: 30px;
+  }
+
+  .logo__word {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+  }
+
+  .nav {
+    display: none;
+    gap: 2.25rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+  }
+
+  .nav a {
+    text-decoration: none;
+    position: relative;
+    padding-block: 0.4rem;
+  }
+
+  .nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.45s var(--ease);
+  }
+
+  .nav a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .header__cta {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.7rem 1.1rem;
+    border: 1px solid currentColor;
+    transition:
+      background-color 0.35s var(--ease),
+      color 0.35s var(--ease);
+  }
+
+  .header__cta:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+
+  @media (max-width: 559px) {
+    .header__cta {
+      padding: 0.55rem 0.8rem;
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .nav {
+      display: flex;
+    }
+  }
+</style>

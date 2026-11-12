@@ -1,0 +1,39 @@
+---
+/** Section label styled like a dimension mark: "02 — Materiales" over a ruler. */
+interface Props {
+  index: string;
+  label: string;
+  tone?: 'dark' | 'light';
+}
+const { index, label, tone = 'dark' } = Astro.props;
+---
+
+<div class:list={['shead', `shead--${tone}`]} data-reveal>
+  <p class="eyebrow"><span class="shead__idx">{index}</span> — {label}</p>
+  <div class="ruler" aria-hidden="true"></div>
+</div>
+
+<style>
+  .shead {
+    display: grid;
+    gap: 0.9rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .shead--dark {
+    color: var(--ink-2);
+  }
+
+  .shead--light {
+    color: var(--mares);
+  }
+
+  .shead__idx {
+    font-variant-numeric: tabular-nums;
+    color: var(--oak);
+  }
+
+  .shead--light .shead__idx {
+    color: var(--paper);
+  }
+</style>

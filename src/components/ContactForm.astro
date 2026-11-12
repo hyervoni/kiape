@@ -1,0 +1,183 @@
+---
+import { site, materials } from '../config';
+---
+
+<form class="form" data-lead-form data-key={site.formKey} data-wa={site.whatsapp} novalidate>
+  <input type="hidden" name="subject" value="Nueva consulta web · KIAPE" />
+  <input type="hidden" name="from_name" value="kiape.co" />
+  {['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid', 'landing'].map((n) => (
+    <input type="hidden" name={n} data-attr={n} />
+  ))}
+  <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+  <div class="form__grid">
+    <label class="field">
+      <span>Nombre</span>
+      <input name="nombre" type="text" autocomplete="name" required />
+    </label>
+    <label class="field">
+      <span>Teléfono / WhatsApp</span>
+      <input name="telefono" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9+()\s\-]{9,}" />
+    </label>
+    <label class="field field--full">
+      <span>Email <small>(opcional)</small></span>
+      <input name="email" type="email" autocomplete="email" />
+    </label>
+    <label class="field">
+      <span>Material</span>
+      <select name="material" required data-material-select>
+        <option value="" disabled selected>Elegir…</option>
+        {materials.map((m) => <option value={m.name}>{m.name}</option>)}
+        <option value="Aún no lo sé">Aún no lo sé</option>
+      </select>
+    </label>
+    <label class="field">
+      <span>Superficie aproximada</span>
+      <select name="superficie">
+        <option value="">Elegir…</option>
+        <option>Menos de 50 m²</option>
+        <option>50 – 150 m²</option>
+        <option>150 – 300 m²</option>
+        <option>Más de 300 m²</option>
+      </select>
+    </label>
+    <label class="field field--full">
+      <span>Municipio de la obra</span>
+      <input name="municipio" type="text" autocomplete="address-level2" placeholder="Palma, Andratx, Sóller…" />
+    </label>
+    <label class="field field--full">
+      <span>Cuéntanos tu proyecto <small>(opcional)</small></span>
+      <textarea name="mensaje" rows="3"></textarea>
+    </label>
+  </div>
+
+  <label class="consent">
+    <input type="checkbox" name="privacidad" required />
+    <span>He leído y acepto la <a href="/privacidad" target="_blank">política de privacidad</a>.</span>
+  </label>
+
+  <button type="submit" class="btn btn--solid form__submit">Solicitar visita técnica</button>
+  <p class="form__status" role="status" aria-live="polite" data-status></p>
+</form>
+
+<style>
+  .form {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .form__grid {
+    display: grid;
+    gap: 1.25rem 1.5rem;
+  }
+
+  .field {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .field > span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .field small {
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    color: var(--ink-3);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.6rem 0;
+    border: 0;
+    border-bottom: 1px solid rgb(27 25 21 / 0.35);
+    border-radius: 0;
+    background: transparent;
+    font-size: 1rem; /* ≥16px: avoids iOS zoom on focus */
+    transition: border-color 0.3s var(--ease);
+    appearance: none;
+  }
+
+  .field select {
+    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+    background-position:
+      calc(100% - 10px) 50%,
+      calc(100% - 5px) 50%;
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 88px;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-bottom-color: var(--oak);
+    box-shadow: 0 1px 0 0 var(--oak);
+  }
+
+  .field [aria-invalid='true'] {
+    border-bottom-color: #a03a2a;
+  }
+
+  .consent {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    font-size: 0.875rem;
+    color: var(--ink-2);
+  }
+
+  .consent input {
+    width: 20px;
+    height: 20px;
+    margin: 0.15rem 0 0;
+    accent-color: var(--ink);
+    flex: none;
+  }
+
+  .form__submit {
+    width: 100%;
+  }
+
+  .form__submit[disabled] {
+    opacity: 0.6;
+    cursor: progress;
+  }
+
+  .form__status {
+    font-size: 0.9375rem;
+    min-height: 1.5em;
+  }
+
+  .form__status[data-state='error'] {
+    color: #a03a2a;
+  }
+
+  @media (min-width: 640px) {
+    .form__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .field--full {
+      grid-column: 1 / -1;
+    }
+
+    .form__submit {
+      width: auto;
+      justify-self: start;
+    }
+  }
+</style>

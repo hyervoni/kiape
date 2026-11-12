@@ -1,0 +1,226 @@
+---
+/**
+ * Cookie consent (RGPD / AEPD guide): Accept and Reject with equal prominence,
+ * per-category settings, and Google Consent Mode v2 in *basic* mode —
+ * GTM is only loaded after the visitor grants analytics or marketing consent.
+ * Renders nothing when no GTM ID is configured (the site then sets no cookies).
+ */
+import { site } from '../config';
+const gtmId = site.gtmId;
+---
+
+{
+  gtmId && (
+    <>
+      <div class="cc" role="dialog" aria-modal="false" aria-labelledby="cc-title" data-cc hidden>
+        <p id="cc-title" class="cc__title">Tu privacidad</p>
+        <p class="cc__text">
+          Usamos cookies de terceros para medir visitas y campañas. Solo se activan si las aceptas.{' '}
+          <a href="/cookies">Más información</a>.
+        </p>
+        <form class="cc__prefs" data-cc-prefs hidden>
+          <label><input type="checkbox" checked disabled /> Necesarias <small>(siempre activas)</small></label>
+          <label><input type="checkbox" name="analytics" /> Analítica <small>(Google Analytics)</small></label>
+          <label><input type="checkbox" name="marketing" /> Publicidad <small>(Google Ads, Meta)</small></label>
+        </form>
+        <div class="cc__actions">
+          <button type="button" class="btn btn--solid" data-cc-action="reject">Rechazar</button>
+          <button type="button" class="btn btn--solid" data-cc-action="accept">Aceptar</button>
+          <button type="button" class="btn btn--ghost cc__save" data-cc-action="save" hidden>Guardar selección</button>
+          <button type="button" class="cc__config" data-cc-action="config">Configurar</button>
+        </div>
+      </div>
+
+      <script is:inline define:vars={{ gtmId }}>
+        (function () {
+          var KEY = 'kiape_consent_v1';
+          var w = window, d = document;
+          w.dataLayer = w.dataLayer || [];
+          function gtag() { w.dataLayer.push(arguments); }
+          gtag('consent', 'default', {
+            ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied',
+          });
+
+          var loaded = false;
+          function loadGtm() {
+            if (loaded) return;
+            loaded = true;
+            w.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+            var s = d.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtm.js?id=' + gtmId;
+            d.head.appendChild(s);
+          }
+
+          function apply(c) {
+            var ad = c.marketing ? 'granted' : 'denied';
+            gtag('consent', 'update', {
+              analytics_storage: c.analytics ? 'granted' : 'denied',
+              ad_storage: ad, ad_user_data: ad, ad_personalization: ad,
+            });
+            if (c.analytics || c.marketing) loadGtm();
+          }
+
+          function read() {
+            try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; }
+          }
+          function save(c) {
+            c.date = new Date().toISOString();
+            try { localStorage.setItem(KEY, JSON.stringify(c)); } catch (e) { /* storage blocked: consent lasts this page view */ }
+            apply(c);
+            hide();
+          }
+
+          var box, prefs;
+          function show() {
+            box.hidden = false;
+            var c = read();
+            if (c) { prefs.analytics.checked = !!c.analytics; prefs.marketing.checked = !!c.marketing; }
+          }
+          function hide() { box.hidden = true; }
+
+          var stored = read();
+          if (stored) apply(stored);
+
+          d.addEventListener('DOMContentLoaded', function () {
+            box = d.querySelector('[data-cc]');
+            prefs = d.querySelector('[data-cc-prefs]');
+            if (!stored) show();
+            d.addEventListener('click', function (e) {
+              var t = e.target.closest('[data-cc-action],[data-consent-open]');
+              if (!t) return;
+              if (t.hasAttribute('data-consent-open')) return show();
+              var a = t.getAttribute('data-cc-action');
+              if (a === 'accept') save({ analytics: true, marketing: true });
+              if (a === 'reject') save({ analytics: false, marketing: false });
+              if (a === 'config') {
+                prefs.hidden = false;
+                t.hidden = true;
+                box.querySelector('[data-cc-action="save"]').hidden = false;
+              }
+              if (a === 'save') save({ analytics: prefs.analytics.checked, marketing: prefs.marketing.checked });
+            });
+          });
+        })();
+      </script>
+    </>
+  )
+}
+
+<style>
+  .cc {
+    position: fixed;
+    z-index: 80;
+    left: 1rem;
+    right: 1rem;
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    max-width: 30rem;
+    padding: 1.5rem;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    box-shadow: 0 20px 60px -20px rgb(27 25 21 / 0.35);
+    display: grid;
+    gap: 0.9rem;
+    font-size: 0.9375rem;
+  }
+
+  .cc[hidden] {
+    display: none;
+  }
+
+  .cc__title {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    line-height: 1.1;
+  }
+
+  .cc__text {
+    color: var(--ink-2);
+  }
+
+  .cc__prefs {
+    display: grid;
+    gap: 0.6rem;
+    padding: 0.9rem 0;
+    border-block: 1px solid var(--line);
+  }
+
+  .cc__prefs[hidden] {
+    display: none;
+  }
+
+  .cc__prefs label {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  .cc__prefs input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--ink);
+  }
+
+  .cc__prefs small {
+    color: var(--ink-3);
+  }
+
+  .cc__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .cc__actions .btn {
+    min-height: 46px;
+    padding: 0 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .cc__actions [hidden] {
+    display: none;
+  }
+
+  /* Accept and Reject share the same size and weight (AEPD). */
+  .cc__save,
+  .cc__config {
+    grid-column: 1 / -1;
+  }
+
+  .cc__config {
+    justify-self: start;
+    padding: 0.25rem 0;
+    border: 0;
+    background: none;
+    font-size: 0.8125rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    color: var(--ink-2);
+    cursor: pointer;
+  }
+
+  @media (max-width: 639px) {
+    .cc {
+      left: 0.5rem;
+      right: 0.5rem;
+      bottom: calc(0.5rem + env(safe-area-inset-bottom));
+      padding: 1rem 1.1rem;
+      gap: 0.6rem;
+      font-size: 0.8125rem;
+      line-height: 1.45;
+    }
+
+    .cc__title {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .cc {
+      left: auto;
+      right: 1.5rem;
+      bottom: 1.5rem;
+    }
+  }
+</style>

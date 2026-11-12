@@ -1,0 +1,72 @@
+---
+import { testimonials } from '../config';
+---
+
+{
+  testimonials.length > 0 && (
+    <section class="tst" aria-label="Opiniones de clientes">
+      <ul class="wrap tst__list" role="list">
+        {testimonials.map((t, i) => (
+          <li class="tst__item" data-reveal style={`--d:${i * 100}ms`}>
+            <blockquote>
+              <p class="tst__quote">“{t.quote}”</p>
+            </blockquote>
+            <p class="tst__who">
+              <strong>{t.name}</strong>
+              <span>{t.context}</span>
+            </p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+<style>
+  .tst {
+    background: var(--mares);
+    padding-block: clamp(4rem, 8vw, 6.5rem);
+  }
+
+  .tst__list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 85%;
+    gap: 2rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .tst__item {
+    scroll-snap-align: start;
+    display: grid;
+    gap: 1.25rem;
+    align-content: space-between;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--ink);
+  }
+
+  .tst__quote {
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    line-height: 1.2;
+  }
+
+  .tst__who {
+    display: grid;
+    font-size: 0.875rem;
+  }
+
+  .tst__who span {
+    color: var(--ink-3);
+  }
+
+  @media (min-width: 900px) {
+    .tst__list {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(3, 1fr);
+      overflow: visible;
+    }
+  }
+</style>
