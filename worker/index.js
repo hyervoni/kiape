@@ -5,7 +5,7 @@ const REDIRECT_HOSTS = new Set(['kiape.co']);
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (REDIRECT_HOSTS.has(url.hostname)) {
+    if (REDIRECT_HOSTS.has(url.hostname) || (url.hostname === CANONICAL_HOST && url.protocol === 'http:')) {
       url.hostname = CANONICAL_HOST;
       url.protocol = 'https:';
       return Response.redirect(url.toString(), 301);
