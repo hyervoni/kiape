@@ -5,7 +5,7 @@
 
 export const site = {
   name: 'KIAPE',
-  legalName: 'Kiape',
+  legalName: 'Kiape S.C.',
   url: 'https://www.kiape.co',
   title: 'KIAPE · Instalación de suelos premium en Mallorca',
   description:
@@ -20,12 +20,12 @@ export const site = {
   instagram: 'https://www.instagram.com/kiape.suelos',
   instagramHandle: '@kiape.suelos',
   facebook: '',
-  // TODO(kiape): legal data required by LSSI-CE before going live.
+  // Legal data required by LSSI-CE (provided by the client, 2026-11-16).
   legal: {
-    holder: '[Razón social o nombre del titular]',
-    taxId: '[NIF / CIF]',
-    address: '[Domicilio fiscal], Mallorca, España',
-    registry: '', // e.g. 'Registro Mercantil de Palma, Tomo X, Folio Y, Hoja Z' (companies only)
+    holder: 'Kiape S.C.',
+    taxId: 'J88882238',
+    address: 'Polígono 44, Parcela 322, 07620 Llucmajor, Illes Balears, España',
+    registry: '', // Sociedad civil: not registered in the Registro Mercantil.
   },
   /** Optional Web3Forms access key (public). Without it, the form falls back to WhatsApp. */
   formKey: import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '',
