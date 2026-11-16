@@ -12,7 +12,7 @@ export const site = {
     'Instalación de tarima, parquet en espiga, porcelánico de gran formato, vinilo y laminado en Mallorca. Un único equipo: medición, preparación del soporte y acabado. Presupuesto cerrado.',
   locale: 'es_ES',
   region: 'Mallorca, Illes Balears',
-  // TODO(kiape): confirm WhatsApp number and public Facebook URL.
+  // WhatsApp confirmed by the client (2026-11-16). TODO(kiape): public Facebook URL.
   phone: '+34613151919',
   phoneDisplay: '+34 613 151 919',
   whatsapp: '34613151919',
