@@ -8,6 +8,7 @@ import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { site } from '../config';
 import Icon from './Icon.astro';
+import { coverFactor, sizes } from '../lib/images';
 
 const images = import.meta.glob<{ default: ImageMetadata }>('../assets/img/*.jpg', { eager: true });
 const posts = [
@@ -38,7 +39,7 @@ const posts = [
         {posts.map((p, i) => (
           <li data-reveal style={`--d:${i * 60}ms`}>
             <a href={site.instagram} target="_blank" rel="noopener" aria-label={`Ver en Instagram: ${p.alt}`} data-track="instagram_click">
-              <Picture src={p.src} alt="" formats={['avif', 'webp']} widths={[240, 400, 600]} sizes="(min-width: 900px) 16vw, 33vw" />
+              <Picture src={p.src} alt="" formats={['avif', 'webp']} widths={[160, 240, 320, 400, 480, 600, 720]} sizes={sizes([['(min-width: 900px)', '16vw'], ['', '33vw']], coverFactor(p.src, 1))} />
             </a>
           </li>
         ))}

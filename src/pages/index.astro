@@ -8,6 +8,7 @@ import Icon from '../components/Icon.astro';
 import Testimonials from '../components/Testimonials.astro';
 import Instagram from '../components/Instagram.astro';
 import { site, waLink, materials, steps, faqs } from '../config';
+import { coverFactor, sizes } from '../lib/images';
 
 const images = import.meta.glob<{ default: ImageMetadata }>('../assets/img/*.jpg', { eager: true });
 const img = (name: string) => images[`../assets/img/${name}.jpg`].default;
@@ -38,7 +39,7 @@ const faqSchema = {
       src={img('salon-roble')}
       alt="Salón luminoso con tarima de roble claro en lama ancha y grandes ventanales"
       formats={['avif', 'webp']}
-      widths={[640, 960, 1280, 1920, 2400]}
+      widths={[640, 960, 1280, 1440, 1600, 1920, 2400]}
       sizes="100vw"
       loading="eager"
       fetchpriority="high"
@@ -111,8 +112,8 @@ const faqSchema = {
         src={img('interior-luz')}
         alt="Interior luminoso con porcelánico claro, escalera de madera y vistas a la piscina"
         formats={['avif', 'webp']}
-        widths={[640, 960, 1400]}
-        sizes="(min-width: 900px) 55vw, 100vw"
+        widths={[640, 800, 960, 1200, 1400, 1800]}
+        sizes={sizes([['(min-width: 900px)', `calc(55vw * ${coverFactor(img('interior-luz'), 1)})`], ['', '100vw']])}
       />
     </div>
     <div class="manifesto__text">
@@ -147,8 +148,11 @@ const faqSchema = {
                 src={img(m.image)}
                 alt={m.alt}
                 formats={['avif', 'webp']}
-                widths={[400, 640, 900]}
-                sizes="(min-width: 1100px) 25vw, (min-width: 700px) 45vw, 80vw"
+                widths={[320, 400, 480, 560, 640, 800, 960, 1200]}
+                sizes={sizes(
+                  [['(min-width: 1360px)', '290px'], ['(min-width: 1100px)', '21.5vw'], ['(min-width: 700px)', '45vw'], ['', '72vw']],
+                  coverFactor(img(m.image), 4 / 5),
+                )}
               />
               <span class="mat__idx">0{i + 1}</span>
             </div>
@@ -218,8 +222,12 @@ const faqSchema = {
                 src={img(g.name)}
                 alt={g.alt}
                 formats={['avif', 'webp']}
-                widths={[480, 800, 1200, 1600]}
-                sizes={g.cls === 'g--wide' ? '(min-width: 900px) 66vw, 100vw' : '(min-width: 900px) 33vw, 100vw'}
+                widths={[400, 480, 640, 800, 960, 1200, 1600]}
+                sizes={
+                  g.cls === 'g--wide'
+                    ? sizes([['(min-width: 1360px)', '830px'], ['(min-width: 900px)', '61vw'], ['', '92vw']])
+                    : sizes([['(min-width: 1360px)', '400px'], ['(min-width: 900px)', '30vw'], ['', '92vw']])
+                }
               />
               <figcaption>{g.caption}</figcaption>
             </figure>
