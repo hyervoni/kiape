@@ -28,14 +28,16 @@ src/
 public/                  # favicon, og.jpg (1200×630), robots.txt
 ```
 
-## Preview on GitHub Pages
+## Deploy (Cloudflare)
 
-Every push to `main` deploys a preview to **https://hyervoni.github.io/kiape/** via `.github/workflows/deploy.yml`.
-The workflow builds with `GITHUB_PAGES=true` (serves under the `/kiape` base) and `PUBLIC_PREVIEW=true`
-(adds `noindex` and a blocking `robots.txt`, so the preview never competes with the real domain in Google).
-Internal links must go through `path()` from `src/config.ts` so they work under both bases.
+Production is **https://www.kiape.co**, served by the Cloudflare Worker `kiape` in the client's account
+(`wrangler.jsonc`: static assets from `dist/` + `worker/index.js`, which 301-redirects `kiape.co` and `http://` to `https://www.kiape.co`).
 
-A plain `npm run build` is the production build for `www.kiape.co` (no base, indexable).
+- Every push to `main` builds and runs `wrangler deploy` (`.github/workflows/deploy.yml`, needs the `CLOUDFLARE_API_TOKEN` secret).
+- `PUBLIC_WEB3FORMS_KEY` and `PUBLIC_GTM_ID` come from the repo's Actions **variables** (`gh variable set ...`).
+- Manual deploy: `npm run build && npx wrangler deploy`.
+- Legacy Wix URLs are redirected in `public/_redirects`. DNS backup taken before the switch: `docs/kiape.co.txt`.
+- Email (`info@kiape.co`) is Cloudflare Email Routing: never touch the MX / SPF / DKIM records.
 
 ## Environment (optional)
 

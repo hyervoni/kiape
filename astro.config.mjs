@@ -2,13 +2,10 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// GitHub Pages preview (https://hyervoni.github.io/kiape/) vs production (www.kiape.co).
-const isPages = process.env.GITHUB_PAGES === 'true';
-
+// Production: www.kiape.co, served by a Cloudflare Worker (see wrangler.jsonc).
 // https://astro.build/config
 export default defineConfig({
-  site: isPages ? 'https://hyervoni.github.io' : 'https://www.kiape.co',
-  base: isPages ? '/kiape' : undefined,
+  site: 'https://www.kiape.co',
   trailingSlash: 'never',
   integrations: [
     sitemap({
