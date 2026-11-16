@@ -1,4 +1,4 @@
-name: Deploy preview to GitHub Pages
+name: Deploy
 
 on:
   push:
@@ -7,16 +7,20 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: deploy
   cancel-in-progress: true
 
 jobs:
-  build:
+  production:
+    name: Production (Cloudflare → www.kiape.co)
     runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://www.kiape.co
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,18 +30,11 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          GITHUB_PAGES: 'true'
-          PUBLIC_PREVIEW: 'true'
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          PUBLIC_WEB3FORMS_KEY: ${{ vars.PUBLIC_WEB3FORMS_KEY }}
+          PUBLIC_GTM_ID: ${{ vars.PUBLIC_GTM_ID }}
+      - name: Deploy to Cloudflare Workers
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: npx wrangler deploy
+      - name: Skip deploy (missing token)
+        if: env.CLOUDFLARE_API_TOKEN == ''
+        run: echo "::warning::CLOUDFLARE_API_TOKEN secret is not set; build only, nothing deployed."

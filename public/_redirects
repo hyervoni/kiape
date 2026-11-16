@@ -1,0 +1,5 @@
+# Legacy Wix URLs -> sections of the new one-page site (keeps SEO and old links working)
+/nosotros   /#estudio     301
+/productos  /#materiales  301
+/brands     /#materiales  301
+/contacto   /#contacto    301
