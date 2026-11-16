@@ -105,7 +105,6 @@ export const materials: {
 
 export const steps = [
   {
-    // TODO(kiape): confirm that samples are brought to the visit.
     title: 'Visita con muestras',
     text: 'Medimos, revisamos humedad y nivel del soporte y te llevamos muestras para decidir en casa. Sin coste.',
   },
